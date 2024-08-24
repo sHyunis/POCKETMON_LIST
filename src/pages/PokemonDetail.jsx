@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import MOCK_DATA from "../MOCK_DATA";
 import styled from "styled-components";
+import { usePokemon } from "../contexts/PokemonContext";
 const Wrap = styled.div`
   width: 80%;
   margin: 0 auto;
@@ -62,6 +63,7 @@ const ContentButton = styled.button`
   }
 `;
 const PokemonDetail = () => {
+  const { addPokemon } = usePokemon();
   // parameter가져오기
   const { id } = useParams();
   // MOCK_DATA의 id앞 : 제거
@@ -107,7 +109,9 @@ const PokemonDetail = () => {
           <ContentButton onClick={() => navigate("/Dex")}>
             뒤로 가기
           </ContentButton>
-          <ContentButton>추가하기</ContentButton>
+          <ContentButton onClick={() => addPokemon(detailData)}>
+            추가하기
+          </ContentButton>
         </Buttons>
       </DetailCard>
     </Wrap>

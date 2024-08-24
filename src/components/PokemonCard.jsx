@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { usePokemon } from "../contexts/PokemonContext";
+import pokemonData from "../MOCK_DATA.js";
 const ListCards = styled.div`
   width: 90%;
   display: flex;
@@ -48,7 +50,8 @@ const AddButton = styled.button`
     transform: translate3d(0, -5%, 0);
   }
 `;
-const PokemonCard = ({ addPokemon, pokemonData }) => {
+const PokemonCard = () => {
+  const { addPokemon } = usePokemon();
   return (
     <ListCards>
       {pokemonData.map((data) => (

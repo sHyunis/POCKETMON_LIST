@@ -1,10 +1,10 @@
 import React from "react";
 import PokemonCard from "./PokemonCard";
 
-const PokemonList = ({ addPokemon, pokemonData }) => {
+const PokemonList = () => {
   return (
     <div>
-      <PokemonCard addPokemon={addPokemon} pokemonData={pokemonData} />
+      <PokemonCard />
     </div>
   );
 };
