@@ -28,6 +28,8 @@ const ContentP = styled.p`
 `;
 const ContentH2 = styled.h2`
   font-size: 4rem;
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 1rem;
 `;
 const Buttons = styled.div`
   width: 100%;
