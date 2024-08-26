@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import defaultImage from "../assets/imgs/pokeball-13iwdk7Y.png"; // Import the image
+import { usePokemon } from "../contexts/PokemonContext";
 
 const Wrap = styled.div`
   width: 90%;
@@ -59,7 +60,8 @@ const DeleteButton = styled.button`
     0 6px 6px rgba(193, 193, 193, 0.23);
 `;
 
-const Dashboard = ({ selectPokemon, removePokemon }) => {
+const Dashboard = () => {
+  const { selectPokemon, removePokemon } = usePokemon();
   return (
     <Wrap>
       <DashboardH2>나만의 포켓몬</DashboardH2>
@@ -83,7 +85,7 @@ const Dashboard = ({ selectPokemon, removePokemon }) => {
                   </DeleteButton>
                 </>
               ) : (
-                <DefaultImg src={defaultImage} alt="Default Pokémon" /> // Use imported image
+                <DefaultImg src={defaultImage} alt="Default Pokémon" />
               )}
             </DashBoardCard>
           ))}
