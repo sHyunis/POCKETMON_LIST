@@ -2,7 +2,10 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import MOCK_DATA from "../MOCK_DATA";
 import styled from "styled-components";
-import { usePokemon } from "../contexts/PokemonContext";
+// import { usePokemon } from "../contexts/PokemonContext";
+import { addPokemon } from "../features/pokemonSlice";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 const Wrap = styled.div`
   width: 80%;
   margin: 0 auto;
@@ -63,7 +66,7 @@ const ContentButton = styled.button`
   }
 `;
 const PokemonDetail = () => {
-  const { addPokemon } = usePokemon();
+  // const { addPokemon } = usePokemon();
   // parameter가져오기
   const { id } = useParams();
   // MOCK_DATA의 id앞 : 제거
@@ -73,7 +76,18 @@ const PokemonDetail = () => {
     (pokemon) => pokemon.id === parseInt(paramsId)
   );
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const selectPokemon = useSelector((state) => state.pokemon);
 
+  const handleAddPokemon = (pokemon) => {
+    if (selectPokemon.length > 6) {
+      alert("최대 6개의 포켓몬만 추가가능합니다.");
+    } else if (selectPokemon.includes(pokemon)) {
+      alert("이미 추가된 포켓몬입니다.");
+    } else {
+      dispatch(addPokemon(pokemon));
+    }
+  };
   if (!detailData) {
     return (
       <Wrap>
@@ -109,7 +123,7 @@ const PokemonDetail = () => {
           <ContentButton onClick={() => navigate("/Dex")}>
             뒤로 가기
           </ContentButton>
-          <ContentButton onClick={() => addPokemon(detailData)}>
+          <ContentButton onClick={() => handleAddPokemon(detailData)}>
             추가하기
           </ContentButton>
         </Buttons>

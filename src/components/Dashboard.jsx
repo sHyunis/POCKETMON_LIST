@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import defaultImage from "../assets/imgs/pokeball-13iwdk7Y.png"; // Import the image
-import { usePokemon } from "../contexts/PokemonContext";
+import { useSelector, useDispatch } from "react-redux";
+import { removePokemon } from "../features/pokemonSlice";
+// import { usePokemon } from "../contexts/PokemonContext";
 
 const Wrap = styled.div`
   width: 90%;
@@ -61,7 +63,11 @@ const DeleteButton = styled.button`
 `;
 
 const Dashboard = () => {
-  const { selectPokemon, removePokemon } = usePokemon();
+  // const { selectPokemon, removePokemon } = usePokemon();
+  const selectPokemon = useSelector((state) => state.pokemon);
+
+  const dispatch = useDispatch();
+
   return (
     <Wrap>
       <DashboardH2>나만의 포켓몬</DashboardH2>
@@ -79,7 +85,9 @@ const Dashboard = () => {
                   <p>{selectPokemon[index].korean_name}</p>
 
                   <DeleteButton
-                    onClick={() => removePokemon(selectPokemon[index])}
+                    onClick={() => {
+                      dispatch(removePokemon({ id: selectPokemon[index].id }));
+                    }}
                   >
                     삭제
                   </DeleteButton>
