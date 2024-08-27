@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { usePokemon } from "../contexts/PokemonContext";
+// import { usePokemon } from "../contexts/PokemonContext";
 import pokemonData from "../MOCK_DATA.js";
+import { addPokemon } from "../features/pokemonSlice.js";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 const ListCards = styled.div`
   width: 90%;
   display: flex;
@@ -51,7 +54,18 @@ const AddButton = styled.button`
   }
 `;
 const PokemonCard = () => {
-  const { addPokemon } = usePokemon();
+  // const { addPokemon } = usePokemon();
+  const selectPokemon = useSelector((state) => state.pokemon);
+  const dispatch = useDispatch();
+  const handleAddPokemon = (pokemon) => {
+    if (selectPokemon.length > 6) {
+      alert("최대 6개의 포켓몬만 추가가능합니다.");
+    } else if (selectPokemon.includes(pokemon)) {
+      alert("이미 추가된 포켓몬입니다.");
+    } else {
+      dispatch(addPokemon(pokemon));
+    }
+  };
   return (
     <ListCards>
       {pokemonData.map((data) => (
@@ -66,7 +80,7 @@ const PokemonCard = () => {
           </Link>
           <AddButton
             onClick={() => {
-              addPokemon(data);
+              handleAddPokemon(data);
             }}
           >
             추가하기
